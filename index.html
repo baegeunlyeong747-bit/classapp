@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🎈 우리 반 배움터 앱 진열장</title>
   
-  <!-- 초등학생 눈높이에 맞는 아기자기한 Google Fonts -->
+  <!-- 초등학생 눈높이에 맞는 Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
@@ -373,24 +373,19 @@
 
     <!-- 👣 하단 푸터 -->
     <footer>
-      <p>💡 카드를 누르면 외부 학습 사이트로 이동합니다. 안전하고 신나게 공부해 봐요!</p>
+      <p>💡 카드를 누르면 학습 사이트로 이동합니다. 안전하고 신나게 공부해 봐요!</p>
     </footer>
   </div>
 
   <script>
     // =========================================================================
     // 🎈 [수업 앱 데이터 설정]
-    // 👇 이 아래 배열에 한 줄만 추가하면 화면에 새 카드가 자동으로 만들어집니다!
+    // 👇 이 아래에 한 줄만 추가하면 화면에 새 카드가 자동으로 만들어집니다!
     // =========================================================================
     const APP_LIST = [
-      { name: "패들렛", url: "https://padlet.com", icon: "📌", desc: "생각과 의견을 사진과 글로 함께 모아요", tag: "공통", color: "#FFF3E0" },
-      { name: "클래스카드", url: "https://www.classcard.net", icon: "🎴", desc: "신나고 즐거운 영어 단어 암기 게임", tag: "영어", color: "#E1F5FE" },
-      { name: "띵커벨", url: "https://www.tkbell.co.kr", icon: "🔔", desc: "함께 푸는 재미있는 실시간 퀴즈와 토의", tag: "공통", color: "#FFF9C4" },
-      { name: "엔트리", url: "https://playentry.org", icon: "🤖", desc: "블록 코딩으로 상상했던 작품을 만들어봐요", tag: "과학", color: "#E8F5E9" },
-      { name: "Kahoot!", url: "https://kahoot.it", icon: "🎯", desc: "친구들과 실시간으로 신나는 퀴즈 대결", tag: "공통", color: "#FCE4EC" },
-      { name: "알지오매스", url: "https://www.algeobramath.kr", icon: "📐", desc: "도형과 수학을 직접 그려보며 탐구해요", tag: "수학", color: "#F3E5F5" },
-      { name: "캔바", url: "https://www.canva.com", icon: "🎨", desc: "멋진 포스터와 카드를 쉽고 예쁘게 만들어요", tag: "예체능", color: "#E0F7FA" },
-      { name: "구글 클래스룸", url: "https://classroom.google.com", icon: "🏫", desc: "오늘의 과제를 확인하고 작품을 제출해요", tag: "공통", color: "#E8EAF6" }
+      { name: "동물 분류 탐정", url: "https://gemini.google.com/share/ef8ddfaf4dd1", icon: "🦁", desc: "동물의 특징을 관찰하고 분류해 보는 탐정 활동", tag: "과학", color: "#E8F5E9" },
+      { name: "태양계 행성 탐험 도감", url: "planets.html", icon: "🪐", desc: "신비로운 태양계 행성들의 비밀을 탐험해요", tag: "과학", color: "#FFF3E0" },
+      { name: "수업 이해도 신호등", url: "https://goodteacher.my.canva.site/cn6yfa7tj1g84afr", icon: "🚦", desc: "오늘 수업 내용을 얼마나 이해했는지 신호등으로 표현해요", tag: "공통", color: "#E1F5FE" }
     ];
 
     // 상태 관리 변수
