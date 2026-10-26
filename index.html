@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎈 우리 반 배움터 앱 진열장</title>
+  
+  <!-- 초등학생 눈높이에 맞는 아기자기한 Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================
+       🎨 파스텔톤 테마 & 기본 스타일 설정
+       ========================================== */
+    :root {
+      --bg-gradient: linear-gradient(135deg, #FFFDE7 0%, #E8F5E9 50%, #E3F2FD 100%);
+      --text-main: #37474F;
+      --text-sub: #607D8B;
+      --card-bg: #FFFFFF;
+      --primary-yellow: #FFF176;
+      --primary-mint: #A7FFEB;
+      --primary-pink: #FF80AB;
+      --primary-blue: #80D8FF;
+      --shadow-soft: 0 10px 25px rgba(150, 160, 180, 0.15);
+      --shadow-hover: 0 18px 35px rgba(130, 140, 170, 0.22);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nanum Gothic', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    /* ==========================================
+       🎈 상단 헤더 & 안내문
+       ========================================== */
+    header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: 28px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      border: 3px solid #FFFFFF;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "🌸 ✨ 🚀 🎨 📚 🐣";
+      position: absolute;
+      top: 6px;
+      left: 0;
+      right: 0;
+      font-size: 0.9rem;
+      opacity: 0.5;
+      letter-spacing: 12px;
+    }
+
+    .title {
+      font-family: 'Jua', sans-serif;
+      font-size: 2.2rem;
+      color: #2E7D32;
+      margin-top: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .title-badge {
+      background: var(--primary-yellow);
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      color: #F57F17;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.06);
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: var(--text-sub);
+      font-weight: 700;
+    }
+
+    /* ==========================================
+       🔍 검색창 & 과목 태그 필터
+       ========================================== */
+    .controls-section {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 24px;
+      padding: 18px 20px;
+      margin-bottom: 28px;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    }
+
+    .search-box {
+      width: 100%;
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 14px 20px 14px 48px;
+      border: 2px solid #E0E0E0;
+      border-radius: 50px;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.25s ease;
+      background: #FFFFFF;
+    }
+
+    .search-box input:focus {
+      border-color: #81C784;
+      box-shadow: 0 0 0 4px rgba(129, 199, 132, 0.2);
+    }
+
+    .search-box .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2rem;
+      pointer-events: none;
+    }
+
+    .tag-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .tag-btn {
+      border: none;
+      background: #FFFFFF;
+      color: #555;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 2px solid #F0F0F0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    }
+
+    .tag-btn:hover {
+      transform: translateY(-2px);
+      background: #F1F8E9;
+      border-color: #C8E6C9;
+    }
+
+    .tag-btn.active {
+      background: #81C784;
+      color: #FFFFFF;
+      border-color: #66BB6A;
+      box-shadow: 0 4px 10px rgba(129, 199, 132, 0.4);
+    }
+
+    /* ==========================================
+       📱 앱 카드 그리드 (반응형 Layout)
+       ========================================== */
+    .app-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .app-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 22px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 3px solid #FFFFFF;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    /* 퐁퐁 튀어오르는 3D 애니메이션 */
+    .app-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+      border-color: #C8E6C9;
+    }
+
+    .app-card:active {
+      transform: translateY(-2px) scale(0.99);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .app-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: inset 0 -3px 0 rgba(0,0,0,0.05);
+    }
+
+    .badge-tag {
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 50px;
+      background: #F0F4F8;
+      color: #455A64;
+    }
+
+    .app-info {
+      flex-grow: 1;
+    }
+
+    .app-name {
+      font-family: 'Jua', sans-serif;
+      font-size: 1.35rem;
+      color: #263238;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .app-desc {
+      font-size: 0.9rem;
+      color: #607D8B;
+      line-height: 1.45;
+      margin-bottom: 16px;
+      word-break: keep-all;
+    }
+
+    .card-action {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #4CAF50;
+      gap: 4px;
+    }
+
+    .card-action span {
+      transition: transform 0.2s ease;
+    }
+
+    .app-card:hover .card-action span {
+      transform: translateX(4px);
+    }
+
+    /* 검색 결과 없음 상태 */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 50px 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 24px;
+      border: 2px dashed #B0BEC5;
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .empty-state-text {
+      font-size: 1.1rem;
+      color: #546E7A;
+      font-weight: 700;
+    }
+
+    /* ==========================================
+       👣 하단 푸터
+       ========================================== */
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--text-sub);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    footer p {
+      background: rgba(255, 255, 255, 0.6);
+      display: inline-block;
+      padding: 8px 18px;
+      border-radius: 50px;
+    }
+
+    /* 모바일 반응형 조절 */
+    @media (max-width: 600px) {
+      body {
+        padding: 16px 12px 40px;
+      }
+      header {
+        padding: 20px 16px;
+        border-radius: 20px;
+      }
+      .title {
+        font-size: 1.7rem;
+      }
+      .app-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- 🎈 상단 헤더 -->
+    <header>
+      <h1 class="title">
+        <span>🎈 우리 반 배움터 앱 진열장</span>
+        <span class="title-badge" id="appCountBadge">총 0개</span>
+      </h1>
+      <p class="subtitle">오늘 공부할 앱 카드를 누르면 새 창에서 즐겁게 시작해요! ✨</p>
+    </header>
+
+    <!-- 🔍 검색 & 필터 영역 -->
+    <div class="controls-section">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="찾고 싶은 앱 이름이나 설명을 검색해 보세요..." autocomplete="off">
+      </div>
+      
+      <div class="tag-filters" id="tagFilters">
+        <!-- 과목 태그 버튼이 자바스크립트로 자동 생성됩니다 -->
+      </div>
+    </div>
+
+    <!-- 📱 앱 카드 진열장 -->
+    <main class="app-grid" id="appContainer">
+      <!-- 카드가 여기에 자동으로 렌더링됩니다 -->
+    </main>
+
+    <!-- 👣 하단 푸터 -->
+    <footer>
+      <p>💡 카드를 누르면 외부 학습 사이트로 이동합니다. 안전하고 신나게 공부해 봐요!</p>
+    </footer>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 🎈 [수업 앱 데이터 설정]
+    // 👇 이 아래 배열에 한 줄만 추가하면 화면에 새 카드가 자동으로 만들어집니다!
+    // =========================================================================
+    const APP_LIST = [
+      { name: "패들렛", url: "https://padlet.com", icon: "📌", desc: "생각과 의견을 사진과 글로 함께 모아요", tag: "공통", color: "#FFF3E0" },
+      { name: "클래스카드", url: "https://www.classcard.net", icon: "🎴", desc: "신나고 즐거운 영어 단어 암기 게임", tag: "영어", color: "#E1F5FE" },
+      { name: "띵커벨", url: "https://www.tkbell.co.kr", icon: "🔔", desc: "함께 푸는 재미있는 실시간 퀴즈와 토의", tag: "공통", color: "#FFF9C4" },
+      { name: "엔트리", url: "https://playentry.org", icon: "🤖", desc: "블록 코딩으로 상상했던 작품을 만들어봐요", tag: "과학", color: "#E8F5E9" },
+      { name: "Kahoot!", url: "https://kahoot.it", icon: "🎯", desc: "친구들과 실시간으로 신나는 퀴즈 대결", tag: "공통", color: "#FCE4EC" },
+      { name: "알지오매스", url: "https://www.algeobramath.kr", icon: "📐", desc: "도형과 수학을 직접 그려보며 탐구해요", tag: "수학", color: "#F3E5F5" },
+      { name: "캔바", url: "https://www.canva.com", icon: "🎨", desc: "멋진 포스터와 카드를 쉽고 예쁘게 만들어요", tag: "예체능", color: "#E0F7FA" },
+      { name: "구글 클래스룸", url: "https://classroom.google.com", icon: "🏫", desc: "오늘의 과제를 확인하고 작품을 제출해요", tag: "공통", color: "#E8EAF6" }
+    ];
+
+    // 상태 관리 변수
+    let currentTag = "전체";
+    let searchQuery = "";
+
+    // DOM 요소
+    const appContainer = document.getElementById("appContainer");
+    const tagFiltersContainer = document.getElementById("tagFilters");
+    const searchInput = document.getElementById("searchInput");
+    const appCountBadge = document.getElementById("appCountBadge");
+
+    // 과목 태그 목록 추출 및 필터 버튼 생성
+    function initFilters() {
+      const tags = ["전체", ...new Set(APP_LIST.map(app => app.tag))];
+      
+      tagFiltersContainer.innerHTML = tags.map(tag => `
+        <button class="tag-btn ${tag === "전체" ? "active" : ""}" data-tag="${tag}">
+          ${tag === "전체" ? "🌟 전체" : "#" + tag}
+        </button>
+      `).join("");
+
+      // 태그 클릭 이벤트 등록
+      tagFiltersContainer.querySelectorAll(".tag-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          tagFiltersContainer.querySelectorAll(".tag-btn").forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentTag = btn.dataset.tag;
+          renderApps();
+        });
+      });
+    }
+
+    // 카드 목록 화면 렌더링
+    function renderApps() {
+      // 검색어 및 태그 필터링
+      const filteredApps = APP_LIST.filter(app => {
+        const matchesTag = (currentTag === "전체" || app.tag === currentTag);
+        const matchesSearch = app.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                              app.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                              app.tag.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesTag && matchesSearch;
+      });
+
+      // 개수 표시 업데이트
+      appCountBadge.textContent = `총 ${filteredApps.length}개`;
+
+      // 결과가 없을 때
+      if (filteredApps.length === 0) {
+        appContainer.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🔎</div>
+            <div class="empty-state-text">찾으시는 수업 앱이 없어요.<br>다른 검색어나 태그를 선택해 보세요!</div>
+          </div>
+        `;
+        return;
+      }
+
+      // 카드 HTML 생성
+      appContainer.innerHTML = filteredApps.map(app => `
+        <a href="${app.url}" class="app-card" target="_blank" rel="noopener noreferrer" title="${app.name} 열기 (새 탭)">
+          <div>
+            <div class="card-top">
+              <div class="app-icon" style="background-color: ${app.color || '#E3F2FD'};">
+                ${app.icon || '📱'}
+              </div>
+              <span class="badge-tag">#${app.tag}</span>
+            </div>
+            <div class="app-info">
+              <div class="app-name">${app.name}</div>
+              <div class="app-desc">${app.desc}</div>
+            </div>
+          </div>
+          <div class="card-action">
+            열기 <span>🚀</span>
+          </div>
+        </a>
+      `).join("");
+    }
+
+    // 검색창 입력 이벤트
+    searchInput.addEventListener("input", (e) => {
+      searchQuery = e.target.value.trim();
+      renderApps();
+    });
+
+    // 초기화 실행
+    initFilters();
+    renderApps();
+  </script>
+</body>
+</html>
